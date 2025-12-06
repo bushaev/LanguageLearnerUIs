@@ -1,0 +1,40 @@
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-neon-dark: #0A0A0F;
+  --color-neon-darker: #050508;
+  --color-neon-cyan: #00F5FF;
+  --color-neon-pink: #FF10F0;
+  --color-neon-green: #39FF14;
+  --color-neon-purple: #B026FF;
+  --color-neon-gray: #8B8B99;
+
+  --font-family-display: 'Orbitron', monospace;
+  --font-family-body: 'Rajdhani', sans-serif;
+}
+
+body {
+  background-color: var(--color-neon-dark);
+  color: var(--color-neon-cyan);
+  font-family: var(--font-family-body);
+  margin: 0;
+}
+
+.neon-glow {
+  text-shadow: 0 0 10px currentColor, 0 0 20px currentColor, 0 0 30px currentColor;
+}
+
+.neon-border {
+  box-shadow: 0 0 5px currentColor, 0 0 10px currentColor, inset 0 0 5px currentColor;
+}
+
+.scan-line {
+  animation: scan 8s linear infinite;
+}
+
+@keyframes scan {
+  0%, 100% { transform: translateY(-100%); }
+  50% { transform: translateY(100%); }
+}

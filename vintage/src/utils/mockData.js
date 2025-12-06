@@ -1,0 +1,76 @@
+export const books = [
+  {
+    id: 'book1',
+    title: 'The Wandering Path',
+    author: 'Elena Morrison',
+    genre: 'Fiction',
+    year: '1952',
+    readTime: '8 min',
+    excerpt: 'A peculiar collection of thoughts about nothing in particular and everything at once.',
+    content: [
+      'The purple elephant danced gracefully across the meadow while singing ancient melodies.',
+      'Seven clouds gathered around the mountain peak, discussing philosophy with passing butterflies.',
+      'In the corner of the library, a forgotten book whispered secrets to the dusty shelves.',
+      'The clockmaker discovered that time flows backwards on Tuesdays in his workshop.',
+      'Moonlight painted silver patterns on the lake, creating a map to nowhere.',
+      'An old telephone rang in an empty house, carrying conversations from yesterday.',
+      'The garden grew upside down, with roots reaching for the sky and leaves buried deep.',
+      'Shadows danced without their owners, creating elaborate plays for invisible audiences.',
+    ]
+  },
+  {
+    id: 'book2',
+    title: 'Echoes of Tomorrow',
+    author: 'Marcus Chen',
+    genre: 'Mystery',
+    year: '1967',
+    readTime: '12 min',
+    excerpt: 'Strange occurrences in a small town lead to unexpected revelations.',
+    content: [
+      'The baker noticed that bread rose faster when he hummed lullabies to the dough.',
+      'Three sparrows built a nest using only blue ribbons and forgotten promises.',
+      'Railroad tracks curved into impossible spirals, yet trains arrived precisely on time.',
+      'A compass pointed toward memories instead of north, spinning wildly near old photographs.',
+      'The lighthouse keeper collected stars in glass jars, organizing them by brightness.',
+      'Footprints appeared on the ceiling, walking from room to room in perfect silence.',
+      'An umbrella opened itself on sunny days, sheltering passersby from happiness.',
+    ]
+  },
+  {
+    id: 'book3',
+    title: 'Silent Mountains',
+    author: 'Sofia Andersson',
+    genre: 'Adventure',
+    year: '1945',
+    readTime: '15 min',
+    excerpt: 'A journey through landscapes that exist only in dreams.',
+    content: [
+      'The mountain spoke in avalanches, telling stories of ancient civilizations to the valleys.',
+      'Rivers flowed uphill on the first day of spring, carrying fish to their ancestral homes.',
+      'A single tree grew at the summit, its branches touching yesterday and tomorrow.',
+      'Rocks arranged themselves into perfect circles whenever nobody was watching.',
+      'The wind carried letters written in languages that never existed.',
+      'Snow fell upward during winter nights, returning to the clouds before dawn.',
+      'Eagles built nests from lightning, warming their eggs with captured thunder.',
+      'Fog transformed into staircases, allowing travelers to walk through the sky.',
+    ]
+  },
+  {
+    id: 'book4',
+    title: 'The Forgotten Cafe',
+    author: 'Jean-Pierre Dubois',
+    genre: 'Romance',
+    year: '1958',
+    readTime: '10 min',
+    excerpt: 'Where coffee tastes like memories and pastries hold secrets.',
+    content: [
+      'The cafe appeared only on rainy Thursdays, serving tea that tasted like nostalgia.',
+      'A painting on the wall changed scenes with the seasons, documenting impossible events.',
+      'Customers left tips in the form of riddles, and the waiter paid them back with smiles.',
+      'The espresso machine hummed opera arias while grinding beans from fictional countries.',
+      'Sugar cubes dissolved into tiny stories, sweetening coffee with adventures.',
+      'A regular customer ordered breakfast at midnight and dinner at dawn for forty years.',
+      'The menu listed dishes that would be invented next century.',
+    ]
+  },
+];

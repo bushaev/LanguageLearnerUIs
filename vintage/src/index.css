@@ -1,0 +1,55 @@
+@import url('https://fonts.googleapis.com/css2?family=Special+Elite&family=Courier+Prime:wght@400;700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-vintage-paper: #F4E8D0;
+  --color-vintage-sepia: #704214;
+  --color-vintage-ink: #2B1810;
+  --color-vintage-red: #8B2E2E;
+  --color-vintage-cream: #FFF8E7;
+  --color-vintage-brown: #5C4033;
+
+  --font-family-typewriter: 'Special Elite', 'Courier Prime', monospace;
+  --font-family-serif: 'Courier Prime', monospace;
+}
+
+body {
+  background-color: var(--color-vintage-paper);
+  color: var(--color-vintage-ink);
+  font-family: var(--font-family-serif);
+  margin: 0;
+}
+
+.paper-texture {
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      rgba(112, 66, 20, 0.03) 0px,
+      rgba(112, 66, 20, 0.03) 1px,
+      transparent 1px,
+      transparent 2px
+    );
+}
+
+.typewriter-shadow {
+  text-shadow: 2px 2px 0px rgba(43, 24, 16, 0.1);
+}
+
+.ink-stain {
+  position: relative;
+}
+
+.ink-stain::after {
+  content: '';
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: radial-gradient(circle, rgba(43, 24, 16, 0.2) 0%, transparent 70%);
+  border-radius: 50%;
+}
+
+@keyframes typewriter {
+  from { width: 0; }
+  to { width: 100%; }
+}

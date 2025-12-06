@@ -1,0 +1,21 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-scholar-navy: #1E3A5F;
+  --color-scholar-cream: #FAF9F6;
+  --color-scholar-burgundy: #8B2E2E;
+  --color-scholar-gold: #C4A962;
+
+  --font-family-serif: 'Crimson Text', 'Playfair Display', 'Georgia', serif;
+  --font-family-sans: 'Source Sans Pro', system-ui, sans-serif;
+
+  --radius: 0.5rem;
+}
+
+body {
+  background-color: var(--color-scholar-cream);
+  color: var(--color-scholar-navy);
+  font-family: var(--font-family-sans);
+}

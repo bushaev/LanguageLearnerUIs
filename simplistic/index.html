@@ -1,0 +1,330 @@
+<html lang="en"><head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lexicon - Deep Reading</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Newsreader:ital,wght@0,400;0,500;1,400&amp;display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .font-serif { font-family: 'Newsreader', serif; }
+        
+        /* Custom scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background-color: #f4f4f5; border-radius: 3px; }
+        ::-webkit-scrollbar-thumb:hover { background-color: #e4e4e7; }
+
+        /* Animation utilities */
+        .fade-in { animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* Toast Animation */
+        .toast-enter { animation: toastSlideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        .toast-exit { animation: toastSlideDown 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+        @keyframes toastSlideUp { from { transform: translate(-50%, 100%); opacity: 0; } to { transform: translate(-50%, 0); opacity: 1; } }
+        @keyframes toastSlideDown { from { transform: translate(-50%, 0); opacity: 1; } to { transform: translate(-50%, 100%); opacity: 0; } }
+
+        /* Interactive Text Highlighting */
+        .interactive-text {
+            border-bottom: 1.5px solid #e4e4e7;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+        .interactive-text:hover {
+            background-color: #f4f4f5;
+            border-bottom-color: #a1a1aa;
+        }
+        .interactive-text.active {
+            background-color: #fdf2f8; /* Rose-50 */
+            border-bottom-color: #fb7185; /* Rose-400 */
+            color: #9f1239; /* Rose-800 */
+        }
+    </style>
+</head>
+<body class="antialiased bg-white text-zinc-900 min-h-screen flex flex-col overflow-hidden">
+
+    <!-- Navbar -->
+    <nav class="flex-none border-b border-zinc-100 bg-white/80 backdrop-blur-sm z-50">
+        <div class="max-w-screen-2xl mx-auto px-6 h-14 flex items-center justify-between">
+            <div class="flex items-center gap-3 cursor-pointer group" onclick="location.reload()">
+                <div class="w-5 h-5 bg-zinc-900 rounded-[4px] flex items-center justify-center shadow-sm group-hover:bg-zinc-800 transition-colors">
+                    <span class="text-white text-xs font-bold font-serif italic relative top-[-1px]">L</span>
+                </div>
+                <span class="text-sm font-medium tracking-tight text-zinc-900">Lexicon</span>
+            </div>
+            
+            <div id="nav-actions" class="hidden flex items-center gap-2">
+                <button class="p-2 text-zinc-400 hover:text-zinc-900 transition-colors rounded-md hover:bg-zinc-50">
+                    <iconify-icon icon="lucide:settings-2" width="16" stroke-width="1.5"></iconify-icon>
+                </button>
+                <div class="h-4 w-px bg-zinc-200 mx-2"></div>
+                <button onclick="downloadReport()" class="flex items-center gap-2 px-3 py-1.5 rounded-full border border-zinc-200 hover:border-zinc-300 bg-white hover:bg-zinc-50 transition-all shadow-sm group active:scale-95">
+                    <span class="text-xs font-medium text-zinc-600 group-hover:text-zinc-900">Download Report</span>
+                    <iconify-icon icon="lucide:download" class="text-zinc-400 group-hover:text-zinc-900 transition-colors" width="12" stroke-width="1.5"></iconify-icon>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT AREA -->
+    <div class="flex-grow relative w-full h-full">
+
+        <!-- VIEW 1: UPLOAD (Initial State) -->
+        <main id="view-upload" class="absolute inset-0 flex flex-col items-center justify-center p-6 z-10 bg-white fade-in">
+            <div class="w-full max-w-sm text-center space-y-8">
+                <div class="space-y-2">
+                    <h1 class="text-2xl font-medium tracking-tight text-zinc-900">Deep reading workspace</h1>
+                    <p class="text-sm text-zinc-500 leading-relaxed">Import a document to analyze linguistics, etymology, and sentiment in real-time.</p>
+                </div>
+
+                <!-- Interactive Upload Zone -->
+                <div onclick="triggerUpload()" class="group relative w-full aspect-[16/10] rounded-xl border border-dashed border-zinc-200 hover:border-zinc-400 bg-zinc-50/50 hover:bg-zinc-50 transition-all duration-300 flex flex-col items-center justify-center cursor-pointer overflow-hidden">
+                    
+                    <!-- Idle State Content -->
+                    <div id="upload-content-idle" class="flex flex-col items-center space-y-4 p-6 transition-all duration-300 group-hover:-translate-y-1">
+                        <div class="w-10 h-10 rounded-full bg-white shadow-sm border border-zinc-100 flex items-center justify-center">
+                            <iconify-icon icon="lucide:plus" class="text-zinc-400 group-hover:text-zinc-900 transition-colors" width="18" stroke-width="1.5"></iconify-icon>
+                        </div>
+                        <div class="space-y-1">
+                            <p class="text-xs font-medium text-zinc-700">Drop text or file</p>
+                            <p class="text-xs text-zinc-400 uppercase tracking-wider scale-90">PDF • EPUB • TXT</p>
+                        </div>
+                    </div>
+
+                    <!-- Loading State (Hidden) -->
+                    <div id="upload-content-loading" class="hidden absolute inset-0 bg-white/90 backdrop-blur-sm flex-col items-center justify-center space-y-3">
+                        <iconify-icon icon="lucide:loader-2" class="text-zinc-900 animate-spin" width="20" stroke-width="1.5"></iconify-icon>
+                        <p class="text-xs font-medium text-zinc-500">Parsing structure...</p>
+                    </div>
+                </div>
+
+                <!-- Footer Features -->
+                <div class="grid grid-cols-3 gap-4 pt-4 border-t border-zinc-50">
+                    <div class="flex flex-col items-center gap-2 group">
+                        <iconify-icon icon="lucide:type" class="text-zinc-300 group-hover:text-zinc-600 transition-colors" width="16" stroke-width="1.5"></iconify-icon>
+                        <span class="text-xs text-zinc-400 scale-90 font-medium">Serif</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2 group">
+                        <iconify-icon icon="lucide:languages" class="text-zinc-300 group-hover:text-zinc-600 transition-colors" width="16" stroke-width="1.5"></iconify-icon>
+                        <span class="text-xs text-zinc-400 scale-90 font-medium">Define</span>
+                    </div>
+                    <div class="flex flex-col items-center gap-2 group">
+                        <iconify-icon icon="lucide:sparkles" class="text-zinc-300 group-hover:text-zinc-600 transition-colors" width="16" stroke-width="1.5"></iconify-icon>
+                        <span class="text-xs text-zinc-400 scale-90 font-medium">AI Note</span>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- VIEW 2: READER & ANALYSIS (Hidden initially) -->
+        <main id="view-reader" class="hidden absolute inset-0 z-20 bg-white flex flex-col lg:flex-row fade-in">
+            
+            <!-- Left: Text Content Area -->
+            <section class="flex-1 h-full overflow-y-auto scroll-smooth">
+                <div class="max-w-[680px] mx-auto px-8 py-12 lg:py-20">
+                    <!-- Chapter Header -->
+                    <div class="mb-14">
+                        <div class="flex items-center gap-2 mb-4">
+                            <span class="px-2 py-0.5 rounded text-xs scale-90 origin-left font-medium bg-zinc-100 text-zinc-500 uppercase tracking-wider border border-zinc-200">Chapter I</span>
+                            <span class="text-xs text-zinc-300">|</span>
+                            <span class="text-xs text-zinc-400 font-medium">F. Scott Fitzgerald</span>
+                        </div>
+                        <h1 class="text-3xl lg:text-4xl font-serif font-medium tracking-tight text-zinc-900">The Great Gatsby</h1>
+                    </div>
+
+                    <!-- Text Body -->
+                    <article class="font-serif text-lg lg:text-xl leading-[1.8] text-zinc-800 space-y-6">
+                        <p>
+                            In my younger and <span class="interactive-text" onclick="analyzeWord(this, 'vulnerable', 'adjective', 'susceptible to physical or emotional attack or harm.')">more vulnerable years</span> my father gave me some advice that I’ve been turning over in my mind ever since.
+                        </p>
+                        <p>
+                            “Whenever you feel like <span class="interactive-text" onclick="analyzeWord(this, 'criticizing', 'verb', 'indicate the faults of (someone or something) in a disapproving way.')">criticizing</span> any one,” he told me, “just remember that all the people in this world haven’t had the advantages that you’ve had.”
+                        </p>
+                        <p>
+                            He didn’t say any more, but we’ve always been <span class="interactive-text" onclick="analyzeWord(this, 'unusually communicative', 'adjective phrase', 'exceptionally willing to talk or impart information.')">unusually communicative</span> in a reserved way, and I understood that he meant a great deal more than that. In consequence, I’m inclined to reserve all judgments, a habit that has opened up many curious natures to me and also made me the victim of not a few veteran bores.
+                        </p>
+                        <p>
+                            The abnormal mind is quick to detect and attach itself to this quality when it appears in a normal person, and so it came about that in college I was unjustly accused of being a politician, because I was privy to the secret griefs of wild, unknown men.
+                        </p>
+                        <p>
+                            Most of the confidences were unsought—frequently I have feigned sleep, preoccupation, or a hostile levity when I realized by some unmistakable sign that an <span class="interactive-text active" onclick="analyzeWord(this, 'intimate revelation', 'noun phrase', 'a private or personal disclosure of surprising information.')">intimate revelation</span> was quivering on the horizon; for the intimate revelations of young men, or at least the terms in which they express them, are usually plagiaristic and marred by obvious suppressions.
+                        </p>
+                    </article>
+                    
+                    <div class="mt-20 pt-10 border-t border-zinc-100 flex justify-between items-center opacity-60 hover:opacity-100 transition-opacity">
+                        <button class="text-sm font-medium text-zinc-500 flex items-center gap-2 hover:text-zinc-900 transition-colors">
+                            <iconify-icon icon="lucide:arrow-left" width="14"></iconify-icon> Prev
+                        </button>
+                        <span class="text-xs text-zinc-300 font-serif italic">1 / 184</span>
+                        <button class="text-sm font-medium text-zinc-500 flex items-center gap-2 hover:text-zinc-900 transition-colors">
+                            Next <iconify-icon icon="lucide:arrow-right" width="14"></iconify-icon>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Right: Analysis Sidebar -->
+            <aside class="w-full lg:w-[380px] bg-zinc-50/80 border-l border-zinc-200 h-[40vh] lg:h-full flex flex-col z-30 shadow-sm backdrop-blur-md">
+                
+                <!-- Sidebar Header -->
+                <div class="h-14 flex items-center justify-between px-5 border-b border-zinc-200 bg-zinc-50/50">
+                    <span class="text-xs font-semibold text-zinc-500 uppercase tracking-wider">Analysis</span>
+                    <div class="flex gap-2">
+                         <button class="p-1.5 rounded-md hover:bg-zinc-200/50 text-zinc-400 hover:text-zinc-700 transition-colors">
+                            <iconify-icon icon="lucide:panel-right-close" width="14"></iconify-icon>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Empty State (Hidden when active) -->
+                <div id="sidebar-empty" class="hidden flex-1 flex flex-col items-center justify-center p-8 text-center">
+                    <iconify-icon icon="lucide:mouse-pointer-click" class="text-zinc-300 mb-3" width="24"></iconify-icon>
+                    <p class="text-sm text-zinc-500">Select text to view analysis</p>
+                </div>
+
+                <!-- Active Content State -->
+                <div id="sidebar-content" class="flex-1 overflow-y-auto p-5 space-y-6">
+                    
+                    <!-- Selected Word Card -->
+                    <div class="bg-white rounded-lg p-4 shadow-sm border border-zinc-200/60">
+                        <div class="flex justify-between items-start mb-1">
+                            <h2 id="analysis-word" class="text-lg font-serif font-medium text-zinc-900">intimate revelation</h2>
+                            <span class="text-xs scale-90 font-medium text-zinc-400 bg-zinc-50 px-1.5 py-0.5 rounded border border-zinc-100 origin-right">noun phrase</span>
+                        </div>
+                        <p id="analysis-def" class="text-sm text-zinc-600 leading-relaxed mt-2">
+                            A private or personal disclosure of surprising information.
+                        </p>
+                    </div>
+
+                    <!-- Sentiment Analysis -->
+                    <div class="space-y-3">
+                        <div class="flex items-center justify-between">
+                            <span class="text-xs font-medium text-zinc-900">Sentiment</span>
+                            <span class="text-xs scale-90 font-mono text-zinc-400">0.75 POSITIVE</span>
+                        </div>
+                        <div class="h-1.5 w-full bg-zinc-100 rounded-full overflow-hidden flex">
+                            <div class="h-full bg-emerald-400 w-[75%] rounded-full"></div>
+                        </div>
+                    </div>
+
+                    <!-- Etymology / Context -->
+                    <div class="space-y-3">
+                         <div class="flex items-center gap-2 pb-2 border-b border-zinc-100">
+                            <iconify-icon icon="lucide:history" class="text-zinc-400" width="12"></iconify-icon>
+                            <span class="text-xs font-medium text-zinc-900">Contextual Note</span>
+                        </div>
+                        <p class="text-xs text-zinc-500 leading-relaxed">
+                            The narrator uses this phrasing to establish a paradoxical distance; implying closeness ("intimate") while maintaining the role of an observer receiving "revelations" rather than participating in them.
+                        </p>
+                    </div>
+
+                    <!-- AI Actions -->
+                    <div class="grid grid-cols-2 gap-2 pt-2">
+                        <button class="flex items-center justify-center gap-2 px-3 py-2 bg-white border border-zinc-200 rounded-md shadow-sm hover:border-zinc-300 hover:shadow-md transition-all text-xs font-medium text-zinc-700 active:bg-zinc-50">
+                            <iconify-icon icon="lucide:sticky-note" class="text-zinc-400" width="14"></iconify-icon>
+                            Add Note
+                        </button>
+                         <button class="flex items-center justify-center gap-2 px-3 py-2 bg-white border border-zinc-200 rounded-md shadow-sm hover:border-zinc-300 hover:shadow-md transition-all text-xs font-medium text-zinc-700 active:bg-zinc-50">
+                            <iconify-icon icon="lucide:share-2" class="text-zinc-400" width="14"></iconify-icon>
+                            Share
+                        </button>
+                    </div>
+                </div>
+            </aside>
+        </main>
+    </div>
+
+    <!-- Toast Notification Container -->
+    <div id="toast-container" class="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 pointer-events-none"></div>
+
+    <!-- SCRIPT FOR INTERACTION -->
+    <script>
+        // Transition from Upload to Reader
+        function triggerUpload() {
+            const idleState = document.getElementById('upload-content-idle');
+            const loadingState = document.getElementById('upload-content-loading');
+            
+            // Show loading
+            idleState.classList.add('hidden');
+            loadingState.classList.remove('hidden');
+            loadingState.classList.add('flex');
+
+            // Simulate delay
+            setTimeout(() => {
+                document.getElementById('view-upload').style.display = 'none';
+                document.getElementById('view-reader').classList.remove('hidden');
+                document.getElementById('view-reader').classList.add('flex');
+                document.getElementById('nav-actions').classList.remove('hidden');
+                document.getElementById('nav-actions').classList.add('flex');
+            }, 1200);
+        }
+
+        // Handle Word Click/Analysis
+        function analyzeWord(element, word, type, def) {
+            document.querySelectorAll('.interactive-text').forEach(el => el.classList.remove('active'));
+            element.classList.add('active');
+
+            const sidebar = document.getElementById('sidebar-content');
+            const empty = document.getElementById('sidebar-empty');
+            
+            sidebar.style.opacity = '0';
+            
+            setTimeout(() => {
+                document.getElementById('analysis-word').innerText = word;
+                document.getElementById('analysis-def').innerText = def;
+                
+                empty.classList.add('hidden');
+                sidebar.classList.remove('hidden');
+                sidebar.style.opacity = '1';
+                sidebar.classList.add('fade-in');
+            }, 150);
+        }
+
+        // Simulate Report Download
+        function downloadReport() {
+            // Show Toast
+            showToast("Downloading analysis report...");
+            
+            // Create dummy file
+            const content = "Lexicon Analysis Report\n\nChapter I: The Great Gatsby\nAnalyzed Words: Vulnerable, Criticizing, Communicative, Intimate Revelation.\n\nSentiment: Positive (0.75)";
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'lexicon-report.txt';
+            document.body.appendChild(a);
+            
+            setTimeout(() => {
+                a.click();
+                document.body.removeChild(a);
+                window.URL.revokeObjectURL(url);
+            }, 800);
+        }
+
+        // Toast System
+        function showToast(message) {
+            const container = document.getElementById('toast-container');
+            const toast = document.createElement('div');
+            toast.className = 'bg-zinc-900 text-white px-4 py-2.5 rounded-full shadow-xl flex items-center gap-3 toast-enter pointer-events-auto min-w-[200px] justify-center';
+            
+            toast.innerHTML = `
+                <iconify-icon icon="lucide:check-circle" class="text-emerald-400" width="14"></iconify-icon>
+                <span class="text-xs font-medium">${message}</span>
+            `;
+
+            container.appendChild(toast);
+
+            // Remove after 3s
+            setTimeout(() => {
+                toast.classList.remove('toast-enter');
+                toast.classList.add('toast-exit');
+                setTimeout(() => toast.remove(), 300);
+            }, 3000);
+        }
+    </script>
+
+</body></html>
