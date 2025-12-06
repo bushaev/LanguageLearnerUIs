@@ -4,7 +4,7 @@ import { BookReader } from './components/BookReader';
 
 function App() {
   return (
-    <Router>
+    <Router basename="/LanguageLearnerUIs/scholar">
       <Routes>
         <Route path="/" element={<BookLibrary />} />
         <Route path="/book/:bookId" element={<BookReader />} />
