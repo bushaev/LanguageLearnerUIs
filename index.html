@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Language Learning Reader - Design Showcase</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 60px;
+      color: white;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+
+    .subtitle {
+      font-size: 1.2rem;
+      opacity: 0.9;
+      font-weight: 300;
+    }
+
+    .designs-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 30px;
+      margin-bottom: 60px;
+    }
+
+    .design-card {
+      background: white;
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .design-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+    }
+
+    .design-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .design-name {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: #1a202c;
+    }
+
+    .design-tag {
+      font-size: 0.75rem;
+      padding: 4px 12px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .tag-minimal { background: #bee3f8; color: #2c5282; }
+    .tag-academic { background: #fed7d7; color: #742a2a; }
+    .tag-modern { background: #c6f6d5; color: #22543d; }
+    .tag-cyberpunk { background: #e9d8fd; color: #44337a; }
+    .tag-vintage { background: #feebc8; color: #7c2d12; }
+    .tag-clean { background: #e2e8f0; color: #2d3748; }
+
+    .design-description {
+      color: #4a5568;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      font-size: 0.95rem;
+    }
+
+    .design-meta {
+      display: flex;
+      gap: 20px;
+      padding-top: 20px;
+      border-top: 1px solid #e2e8f0;
+      font-size: 0.85rem;
+    }
+
+    .meta-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .meta-label {
+      color: #a0aec0;
+      font-weight: 600;
+      text-transform: uppercase;
+      font-size: 0.7rem;
+      letter-spacing: 0.5px;
+    }
+
+    .meta-value {
+      color: #2d3748;
+      font-weight: 500;
+    }
+
+    .cta-button {
+      background: white;
+      color: #667eea;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      font-weight: 600;
+      display: inline-block;
+      margin-top: 12px;
+      transition: all 0.2s ease;
+      border: 2px solid white;
+    }
+
+    .cta-button:hover {
+      background: transparent;
+      color: white;
+      transform: scale(1.05);
+    }
+
+    footer {
+      text-align: center;
+      color: white;
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: white;
+      text-decoration: underline;
+    }
+
+    @media (max-width: 768px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      .designs-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Language Learning Reader</h1>
+      <p class="subtitle">Explore 6 unique design approaches to interactive reading</p>
+    </header>
+
+    <div class="designs-grid">
+      <!-- Zen Reader -->
+      <a href="./zen-reader/" class="design-card">
+        <div class="design-header">
+          <h2 class="design-name">Zen Reader</h2>
+          <span class="design-tag tag-minimal">Minimal</span>
+        </div>
+        <p class="design-description">
+          Distraction-free, calm reading environment inspired by Kindle and Apple Books.
+          Soft beige palette, serif typography, and floating tooltip explanations.
+        </p>
+        <div class="design-meta">
+          <div class="meta-item">
+            <span class="meta-label">Style</span>
+            <span class="meta-value">Minimalist</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Best For</span>
+            <span class="meta-value">Long Reading</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Scholar -->
+      <a href="./scholar/" class="design-card">
+        <div class="design-header">
+          <h2 class="design-name">Scholar</h2>
+          <span class="design-tag tag-academic">Academic</span>
+        </div>
+        <p class="design-description">
+          Professional reference platform with deep navy and cream palette.
+          Two-column book layout with bottom drawer for definitions.
+        </p>
+        <div class="design-meta">
+          <div class="meta-item">
+            <span class="meta-label">Style</span>
+            <span class="meta-value">Academic</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Best For</span>
+            <span class="meta-value">Research</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Editorial -->
+      <a href="./editorial/" class="design-card">
+        <div class="design-header">
+          <h2 class="design-name">Editorial</h2>
+          <span class="design-tag tag-modern">Modern</span>
+        </div>
+        <p class="design-description">
+          Modern magazine aesthetic inspired by Medium. Black/white with emerald accents,
+          side-by-side text and glossary panel.
+        </p>
+        <div class="design-meta">
+          <div class="meta-item">
+            <span class="meta-label">Style</span>
+            <span class="meta-value">Magazine</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Best For</span>
+            <span class="meta-value">Articles</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Neon -->
+      <a href="./neon/" class="design-card">
+        <div class="design-header">
+          <h2 class="design-name">Neon</h2>
+          <span class="design-tag tag-cyberpunk">Cyberpunk</span>
+        </div>
+        <p class="design-description">
+          Futuristic dark mode with neon cyan, pink, and green. Grid backgrounds,
+          scan lines, and glowing effects. "NEURAL_DICT" panel.
+        </p>
+        <div class="design-meta">
+          <div class="meta-item">
+            <span class="meta-label">Style</span>
+            <span class="meta-value">Sci-Fi</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Best For</span>
+            <span class="meta-value">Gamified</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Vintage -->
+      <a href="./vintage/" class="design-card">
+        <div class="design-header">
+          <h2 class="design-name">Vintage</h2>
+          <span class="design-tag tag-vintage">Retro</span>
+        </div>
+        <p class="design-description">
+          Classic typewriter aesthetic with sepia tones and paper texture.
+          Double borders, corner decorations, and drop caps.
+        </p>
+        <div class="design-meta">
+          <div class="meta-item">
+            <span class="meta-label">Style</span>
+            <span class="meta-value">Typewriter</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Best For</span>
+            <span class="meta-value">Classics</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- Lexicon -->
+      <a href="./lexicon/" class="design-card">
+        <div class="design-header">
+          <h2 class="design-name">Lexicon</h2>
+          <span class="design-tag tag-clean">Professional</span>
+        </div>
+        <p class="design-description">
+          Clean minimalist workspace with white/zinc palette. Analysis sidebar
+          with sentiment indicators and collapsible panels.
+        </p>
+        <div class="design-meta">
+          <div class="meta-item">
+            <span class="meta-label">Style</span>
+            <span class="meta-value">SaaS</span>
+          </div>
+          <div class="meta-item">
+            <span class="meta-label">Best For</span>
+            <span class="meta-value">Analytics</span>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <footer>
+      <p>Built with React + Vite + Tailwind CSS</p>
+      <p><a href="https://github.com" target="_blank">View on GitHub</a></p>
+    </footer>
+  </div>
+</body>
+</html>

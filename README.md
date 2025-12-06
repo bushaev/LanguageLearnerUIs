@@ -434,6 +434,71 @@ See `launch-all.sh` and `install-all.sh` for convenience scripts.
 
 ---
 
+---
+
+## 🚀 Deployment to GitHub Pages
+
+This project is configured for automatic deployment to GitHub Pages using GitHub Actions.
+
+### Setup Instructions
+
+1. **Enable GitHub Pages**:
+   - Go to your repository Settings → Pages
+   - Under "Build and deployment" → Source, select **GitHub Actions**
+
+2. **Push to main branch**:
+   ```bash
+   git add .
+   git commit -m "Setup GitHub Pages deployment"
+   git push origin main
+   ```
+
+3. **Automatic deployment**:
+   - GitHub Actions will automatically build and deploy all 6 apps
+   - Your site will be available at: `https://yourusername.github.io/langteacher_ui/`
+
+### URLs Structure
+
+Once deployed, your apps will be available at:
+- **Landing page**: `https://yourusername.github.io/langteacher_ui/`
+- **Zen Reader**: `https://yourusername.github.io/langteacher_ui/zen-reader/`
+- **Scholar**: `https://yourusername.github.io/langteacher_ui/scholar/`
+- **Editorial**: `https://yourusername.github.io/langteacher_ui/editorial/`
+- **Neon**: `https://yourusername.github.io/langteacher_ui/neon/`
+- **Vintage**: `https://yourusername.github.io/langteacher_ui/vintage/`
+- **Lexicon**: `https://yourusername.github.io/langteacher_ui/lexicon/`
+
+### Manual Build & Deploy
+
+You can also build manually:
+
+```bash
+# Build all apps
+chmod +x build-all.sh
+./build-all.sh
+
+# The built files will be in ./dist/
+# You can deploy this folder to any static hosting service
+```
+
+### How It Works
+
+1. **Vite Configuration**: Each app has a `base` path configured in `vite.config.js`
+2. **Build Script**: `build-all.sh` builds all apps and combines them into a single `dist` folder
+3. **GitHub Actions**: `.github/workflows/deploy.yml` runs on every push to main
+4. **Deployment**: Automatically uploads to GitHub Pages
+
+### Deployment Workflow
+
+The GitHub Actions workflow:
+1. Installs Node.js and dependencies for all 6 apps
+2. Builds each app with `npm run build`
+3. Combines all builds into a single deployment folder
+4. Uploads to GitHub Pages
+5. Deploys automatically
+
+---
+
 ## 📄 License
 
 Prototype for demonstrating UX approaches to language learning applications.
